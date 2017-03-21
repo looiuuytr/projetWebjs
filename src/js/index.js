@@ -29,17 +29,18 @@ $(document).ready(function(){
 
   $("#rechercher").on('click',  function(event){
   $("#images").empty();
-  console.log("gclické");
+  console.log($("#commune").val());
   $.ajax({
       url:'http://api.flickr.com/services/feeds/photos_public.gne',
       type:'GET',
       dataType:'jsonp',
       jsonp: 'jsoncallback', // a renseigner d'après la doc du service, par défaut callback
-      data:'tags='+$("#commune").val()+'s&tagmode=any&format=json',
+      data:'tags='+$("#commune").val()+'&tagmode=any&format=json',
       success:function(data){
       $.each(data.items, function(i,item){
                   $("<img/>").attr("src", item.media.m).appendTo("#images");
-                  if ( i == 6 ) return false ; });
+                  $("<br/>").appendTo("#images");  
+                  if ( i == $("#nbphotos") ) return false ; });
                 },
       error: function(resultat,statut,erreur){
       console.log("erreur");},
