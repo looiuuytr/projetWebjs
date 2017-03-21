@@ -17,4 +17,8 @@ $(document).ready(function(){
           });//fin ajax
       }
   });
+
+  $( function() {
+    $( "#tabs" ).tabs();
+  });
 });
