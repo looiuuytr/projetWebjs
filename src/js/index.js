@@ -21,4 +21,8 @@ $(document).ready(function(){
   $( function() {
     $( "#tabs" ).tabs();
   });
+  $('button[type=submit]').button({icons: {primary: 'ui-icon-circle-zoomin'}}).click(function (event) {
+  event.preventDefault();
+  });
+
 });
