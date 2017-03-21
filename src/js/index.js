@@ -1,29 +1,20 @@
 $(document).ready(function(){
-  $(function(){
-    $("#commune").autocomplete( { minLength: 1},
-      { select: function( event, ui ) {
-        $("#listeCommunes").append(ui.item.value);
-      }},
-      { source: function( request, response ) {
-        $.ajax({
-          url : 'http://infoweb-ens/~jacquin-c/codePostal/commune.php?',
-          type : 'GET',
-          dataType : 'json',
-          data : 'commune='+$("#commune").val()+"&maxRows=10",
-          success: function(data) {
-            response(function(){
-              var tableau=[];
-              for (objet of data) {
-                tableau.append(objet["Ville"]);
-                $("#test").append("<li>"+objet["Ville"]+"</li>");
+  $("#commune").autocomplete({
+      source : function(requete, response){
+      $.ajax({
+              url : 'http://infoweb-ens/~jacquin-c/codePostal/commune.php', // on appelle le script JSON
+              type: 'GET',
+              dataType : 'json', // on spécifie bien que le type de données est en JSON
+              data : 'commune='+$("#commune").val()+"&maxRows=10",
+              success: function (data){
+              	response($.map(data, function (item){
+              		return {
+              			label: item.Ville,
+                    value: item.Ville
+              		}
+              	}));
               }
-              return tableau;
-            });
-          },
-          error: function(data) {
-          }
-        });
+          });//fin ajax
       }
-    });
   });
 });
