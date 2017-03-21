@@ -25,4 +25,5 @@ $(document).ready(function(){
   event.preventDefault();
   });
 
+  $('#myTable').DataTable();
 });
