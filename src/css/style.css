@@ -11,6 +11,6 @@
 .modal{
   display:none;
 }
-img {
+#images img {
   cursor:pointer;
 }
