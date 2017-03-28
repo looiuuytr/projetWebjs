@@ -43,14 +43,8 @@ $(document).ready(function(){
             $.each(data.items, function(i,item){
                         var image = $("<img/>").attr("src", item.media.m);
                         var modal = $("<div/>").css("display", "none");
-
-                        modal.html('<img src="'+item.media.m+'"/>');
-                        modal.append($('<div>'));
-                        modal.append(item.title);
-                        modal.append(item.published);
-                        modal.append(item.author.match("\"(.*)\"")[1]);
-                        modal.append($('</div>'));
-
+                        var infos = "<div>" +'<img src="'+item.media.m+'"/>'+'<div>'+item.title+item.published+item.author.match("\"(.*)\"")[1]+'</div></div>';
+                        modal.html(infos);
 
                         image.click(add_event);
                         function add_event() {
@@ -59,10 +53,11 @@ $(document).ready(function(){
                           });
                           modal.css( "display", "block" );
                         }
+                      
                         image.appendTo("#images");
                         modal.appendTo("#images");
 
-                        $("<br/>").appendTo("#images");
+
                         tableau.row.add( [
                             '<img src="'+item.media.m+'"/>'  ,
                             item.title,
