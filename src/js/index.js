@@ -52,7 +52,8 @@ $(document).ready(function(){
                         image.click(add_event);
                         function add_event() {
                           modal.dialog({
-                            dialogClass: "alert"
+                            dialogClass: "alert",
+                            modal:"true"
                           });
                           modal.css( "display", "block" );
                         }
