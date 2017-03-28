@@ -32,6 +32,7 @@ $(document).ready(function(){
     tableau.clear();
     var counter = 1;
 
+
     $.ajax({
         url:'http://api.flickr.com/services/feeds/photos_public.gne',
         type:'GET',
@@ -40,14 +41,14 @@ $(document).ready(function(){
         data:'tags='+$("#commune").val()+'&tagmode=any&format=json',
         success:function(data){
             var compteur = 0;
+            var modal = $("<div/>").css("display", "none");
             $.each(data.items, function(i,item){
                         var image = $("<img/>").attr("src", item.media.m);
-                        var modal = $("<div/>").css("display", "none");
+
                         var date = item.published.split("T")[0].split("-");
                         var heure = item.published.split("T")[1].split(":");
                         var publication = date[2]+"/"+date[1]+"/"+date[0]+" à "+heure[0]+":"+heure[1];
-                        var infos = "<div>" +'<img src="'+item.media.m+'"/>'+'<div>'+item.title+publication+item.author.match("\"(.*)\"")[1]+'</div></div>';
-                        modal.html(infos);
+
 
                         image.click(add_event);
                         function add_event() {
@@ -56,10 +57,13 @@ $(document).ready(function(){
                             modal:"true"
                           });
                           modal.css( "display", "block" );
+                          var urlhd=item.media.m.split("_m.jpg")[0]+"_b.jpg";
+                          var infos = '<div class="modal_container">' +'<img class="img-modal"  src="'+urlhd+'"/>'+'<div class="modal_infos"><p>'+item.title+'</p><p>'+publication+'</p><p>'+item.author.match("\"(.*)\"")[1]+'</p></div></div>';
+                          modal.html(infos);
                         }
 
                         image.appendTo("#images");
-                        modal.appendTo("#images");
+
 
 
 
@@ -76,9 +80,11 @@ $(document).ready(function(){
                         }
                         compteur=i;
             });
+            modal.appendTo("#images");
             if (compteur==0){
               $( ".modal" ).dialog({
-                dialogClass: "alert"
+                dialogClass: "alert",
+                modal:"true"
               });
               $( ".modal" ).css( "display", "block" );
             }
