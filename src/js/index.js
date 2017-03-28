@@ -57,6 +57,10 @@ $(document).ready(function(){
                           return false ;
                         }
             });
+            $( ".modal" ).dialog({
+              dialogClass: "alert"
+            });
+            $( ".modal" ).css( "display", "block" );
 
         },
         error: function(resultat,statut,erreur){
