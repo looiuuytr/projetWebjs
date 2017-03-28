@@ -39,7 +39,7 @@ $(document).ready(function(){
         jsonp: 'jsoncallback', // a renseigner d'après la doc du service, par défaut callback
         data:'tags='+$("#commune").val()+'&tagmode=any&format=json',
         success:function(data){
-
+            var compteur = 0;
             $.each(data.items, function(i,item){
                         var image = $("<img/>").attr("src", item.media.m);
                         image.appendTo("#images");
@@ -56,11 +56,18 @@ $(document).ready(function(){
 
                           return false ;
                         }
+                        compteur=i;
             });
-            $( ".modal" ).dialog({
-              dialogClass: "alert"
-            });
-            $( ".modal" ).css( "display", "block" );
+            if (compteur==0){
+              $( ".modal" ).dialog({
+                dialogClass: "alert"
+              });
+              $( ".modal" ).css( "display", "block" );
+            }
+            else{
+              $( ".modal" ).css( "display", "none" );
+            }
+
 
         },
         error: function(resultat,statut,erreur){
