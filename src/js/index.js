@@ -29,6 +29,7 @@ $(document).ready(function(){
 
   $("#rechercher").on('click',  function(event){
     $("#images").empty();
+    tableau.clear();
     var counter = 1;
     console.log($("#commune").val());
     $.ajax({
@@ -42,13 +43,13 @@ $(document).ready(function(){
             $.each(data.items, function(i,item){
                         var image = $("<img/>").attr("src", item.media.m);
                         image.appendTo("#images");
-                        
+
                         $("<br/>").appendTo("#images");
                         tableau.row.add( [
                             '<img src="'+item.media.m+'"/>'  ,
-                             '.2',
-                             '.3',
-                             '.4'
+                            item.title,
+                            item.published,
+                            item.author
                         ] ).draw( false );
 
                         if ( i == $("#nbphotos") ){
