@@ -31,7 +31,7 @@ $(document).ready(function(){
     $("#images").empty();
     tableau.clear();
     var counter = 1;
-    console.log($("#commune").val());
+
     $.ajax({
         url:'http://api.flickr.com/services/feeds/photos_public.gne',
         type:'GET',
@@ -42,14 +42,32 @@ $(document).ready(function(){
             var compteur = 0;
             $.each(data.items, function(i,item){
                         var image = $("<img/>").attr("src", item.media.m);
+                        var modal = $("<div/>").css("display", "none");
+
+                        modal.html('<img src="'+item.media.m+'"/>');
+                        modal.append($('<div>'));
+                        modal.append(item.title);
+                        modal.append(item.published);
+                        modal.append(item.author.match("\"(.*)\"")[1]);
+                        modal.append($('</div>'));
+
+
+                        image.click(add_event);
+                        function add_event() {
+                          modal.dialog({
+                            dialogClass: "alert"
+                          });
+                          modal.css( "display", "block" );
+                        }
                         image.appendTo("#images");
+                        modal.appendTo("#images");
 
                         $("<br/>").appendTo("#images");
                         tableau.row.add( [
                             '<img src="'+item.media.m+'"/>'  ,
                             item.title,
                             item.published,
-                            item.author
+                            item.author.match("\"(.*)\"")[1]
                         ] ).draw( false );
 
                         if ( i == $("#nbphotos") ){

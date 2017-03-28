@@ -8,3 +8,6 @@
 .modal{
   display:none;
 }
+img {
+  cursor:pointer;
+}
