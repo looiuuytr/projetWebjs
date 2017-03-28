@@ -43,7 +43,10 @@ $(document).ready(function(){
             $.each(data.items, function(i,item){
                         var image = $("<img/>").attr("src", item.media.m);
                         var modal = $("<div/>").css("display", "none");
-                        var infos = "<div>" +'<img src="'+item.media.m+'"/>'+'<div>'+item.title+item.published+item.author.match("\"(.*)\"")[1]+'</div></div>';
+                        var date = item.published.split("T")[0].split("-");
+                        var heure = item.published.split("T")[1].split(":");
+                        var publication = date[2]+"/"+date[1]+"/"+date[0]+" à "+heure[0]+":"+heure[1];
+                        var infos = "<div>" +'<img src="'+item.media.m+'"/>'+'<div>'+item.title+publication+item.author.match("\"(.*)\"")[1]+'</div></div>';
                         modal.html(infos);
 
                         image.click(add_event);
@@ -53,15 +56,16 @@ $(document).ready(function(){
                           });
                           modal.css( "display", "block" );
                         }
-                      
+
                         image.appendTo("#images");
                         modal.appendTo("#images");
+
 
 
                         tableau.row.add( [
                             '<img src="'+item.media.m+'"/>'  ,
                             item.title,
-                            item.published,
+                            publication,
                             item.author.match("\"(.*)\"")[1]
                         ] ).draw( false );
 
