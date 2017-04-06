@@ -30,8 +30,6 @@ $(document).ready(function(){
   $("#rechercher").on('click',  function(event){
     $("#images").empty();
     tableau.clear();
-    var counter = 1;
-
 
     // $.ajax({
     //     url:'http://api.flickr.com/services/feeds/photos_public.gne',
@@ -97,48 +95,97 @@ $(document).ready(function(){
     //     error: function(resultat,statut,erreur){
     //     console.log("erreur");},
     //      });
-    var url = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=595c96c581cabd128a0abb3f9a581c3e'+
-            '&tags=' + $("#commune").val()+
-            '&per_page=' + $("#nbphotos").val() +
-            '&format=json&nojsoncallback=1&safesearch=safe';
 
-            $.ajax({
-                url:url,
-                type:'GET',
-                dataType:'jsonp',
-                jsonp: 'jsoncallback', // a renseigner d'après la doc du service, par défaut callback
-
-                success:function(data){
-
-
-                    var compteur = 0;
-                    var modal = $("<div/>").css("display", "none");
-
-                    for (photo of data.photos.photo){
-                        src ='http://farm'+photo.farm+'.staticflickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret;
-                        console.log(src+'_b.jpg');
-                        var image = $("<img/>").attr("src", src+'_m.jpg');
-                        image.click( function () {
-                            modal.dialog({
-                            dialogClass: "alert",
-                            modal:"true"
-                            });
-                            modal.css( "display", "block" );
-                            var srcHigh = $(this).attr("src");
-                            var urlhd =srcHigh.substr(0, srcHigh.length-6)+"_h.jpg";
-                            var infos = '<div class="modal_container">' +'<img class="img-modal"  src="'+urlhd+'"/>'+'<div class="modal_infos"><p>'+"idid"+'</p><p>'+"idid"+'</p><p>'+"idid"+'</p></div></div>';
-                            modal.html(infos);
-                        });
-
-                        image.appendTo("#images");
-                    }
+    window.infos="";
+    window.src="";
 
 
 
-                },
-                error: function(resultat,statut,erreur){
-                console.log("erreur");},
-                 });
+      var url = 'https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=595c96c581cabd128a0abb3f9a581c3e'+
+              '&tags=' + $("#commune").val()+
+              '&per_page=' + $("#nbphotos").val() +
+              '&format=json&nojsoncallback=1&safesearch=1';
+      $.ajax({
+          url:url,
+          type:'GET',
+          dataType:'jsonp',
+          jsonp: 'jsoncallback', // a renseigner d'après la doc du service, par défaut callback
+
+          success:function(data){
+
+
+              var compteur = 0;
+              var modal = $("<div/>").css("display", "none");
+
+              for (photo of data.photos.photo){
+                  window.src ='http://farm'+photo.farm+'.staticflickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret;
+                  var image = $("<img/>").attr("src", window.src+'_m.jpg');
+                  var urlInfos = 'https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=595c96c581cabd128a0abb3f9a581c3e'+
+                              '&photo_id='+photo.id+
+                              '&secret='+photo.secret+
+                              '&format=json&nojsoncallback=1';
+                  $.ajax({
+                      url:urlInfos,
+                      type:'GET',
+                      dataType:'jsonp',
+                      jsonp: 'jsoncallback', // a renseigner d'après la doc du service, par défaut callback
+
+                      success:function(data){
+                          var date = data.photo.dates.taken.split(" ")[0].split("-");
+                          var heure = data.photo.dates.taken.split(" ")[1].split(":");
+                          window.publication = date[2]+"/"+date[1]+"/"+date[0]+" à "+heure[0]+":"+heure[1];
+
+                          window.titre = data.photo.title._content;
+                          window.auteur = data.photo.owner.username;
+                          window.resume = data.photo.description._content;
+                          var urlimgTab='http://farm'+data.photo.farm+'.staticflickr.com/'+data.photo.server+'/'+data.photo.id+'_'+data.photo.secret;
+                          tableau.row.add( [
+                                '<img src="'+urlimgTab+'_m.jpg"/>' ,
+                                window.titre,
+                                window.publication,
+                                window.auteur
+                          ] ).draw( false );
+
+                          image.appendTo("#images");
+
+
+
+                    },
+                      error: function(resultat,statut,erreur){
+
+                      }
+
+                      });
+                  image.click( function () {
+                      modal.dialog({
+                      dialogClass: "alert",
+                      modal:"true"
+                      });
+                      modal.css( "display", "block" );
+                      var srcHigh = $(this).attr("src");
+                      var urlhd =srcHigh.substr(0, srcHigh.length-6)+"_h.jpg";
+                      window.infos = '<div class="modal_container">' +'<img class="img-modal"  src="'+urlhd+'"/>';
+                      modal.html(window.infos+'<div class="modal_infos"><p>'+window.titre+'</p><p>'+window.auteur+'</p><p>'+window.resume+'</p></div></div>');
+
+
+
+
+
+                  });
+                  image.appendTo("#images");
+
+              }
+
+
+
+          },
+          error: function(resultat,statut,erreur){
+          console.log("erreur");
+          }
+           });
+
+
+
 });
 
 });
