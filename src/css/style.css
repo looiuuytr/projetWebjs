@@ -1,5 +1,7 @@
 #rechercher{
-  background: #f2f2f2;
+  background: #4bbdea;
+  color:white !important;
+  border: 1px solid #2eafda !important;
 }
 
 #images{
@@ -31,4 +33,55 @@
 }
 .modal-infos{
 
+}
+.ui-widget-overlay{
+  background: black none no-repeat !important;
+  opacity: 0.5 !important;
+
+}
+#tabs ul{
+  background-color: rgb(95, 191, 252);
+background-image: none;
+display: flex;
+justify-content: space-between;
+}
+#tabs ul li{
+  background-image: none;
+  background-color: white;
+  flex:1;
+}
+#tabs ul li a{
+  width:100%;
+}
+.ui-widget-header {
+  background: transparent !important;
+  border: 0 !important;
+}
+.ui-dialog-title{
+  display: none !important;
+}
+.ui-dialog .ui-dialog-titlebar-close {
+    position: relative !important;
+    top: 50%;
+    width: 100% !important;
+    margin: auto !important;
+    padding: 1px;
+    height: 40px !important;
+    background: #2c6699 !important;
+    border-radius: 2px;
+    color: white !important;
+    border-color: transparent !important;
+    transition:  all .2s ease-in !important;
+}
+.ui-dialog .ui-dialog-titlebar-close:hover {
+    position: relative !important;
+    top: 50%;
+    width: 100% !important;
+    margin: auto !important;
+    padding: 1px;
+    height: 40px !important;
+    background: #4bbdea !important;
+    border-radius: 2px;
+    color: white !important;
+    border-color: transparent !important;
 }
