@@ -1,8 +1,11 @@
 #rechercher{
-  background: #e0eaed;
-  color: #4d525c !important;
+  background: #d3dbde;
+  color: #4e525b  !important;
   border: 1px solid #0c4a5f !important;
   transition: all .2s ease-in !important;
+  font-size: 1.4em;
+  width: 10vw;
+  border-radius: 10px;
 }
 
 #images{
@@ -41,18 +44,20 @@ body{
 }
 
 #rechercher:hover{
-  animation: bounce 0.7s ease;
+  background-color: white;
+  color:black;
 }
-@keyframes bounce{
-     from {background-color: #4bbdea !important;color:#170b0b !important;}
-     to   {background-color: #fafeff !important;color:#170b0b !important}
-}
+
 
 
 
 #formPhotos input{
-  height:25px;
+  height:35px;
   margin:auto;
+  border-radius: 4px;
+  border: 0px solid;
+  font-size: 1.3em;
+      width: 15vw;
 }
 
 #tabs{
@@ -81,13 +86,13 @@ body{
 }
 #images img {
   cursor:pointer;
-  margin-bottom:10px;
+  margin:10px;
   transition:  all .2s ease-in !important;
 
 }
 #images img:hover {
     transform: scale(1.1) !important;
-    box-shadow: 1px 0px 10px grey !important;
+    box-shadow: 1px 0px 10px #01183d !important;
 }
 
 .modal_container{
@@ -144,7 +149,7 @@ justify-content: space-between;
     margin: auto !important;
     padding: 1px;
     height: 40px !important;
-    background: #2c6699 !important;
+    background: #e7e7e7  !important;
     border-radius: 2px;
     color: white !important;
     border-color: transparent !important;
@@ -157,7 +162,7 @@ justify-content: space-between;
     margin: auto !important;
     padding: 1px;
     height: 40px !important;
-    background: #4bbdea !important;
+    background: #2078e4 !important;
     border-radius: 2px;
     color: white !important;
     border-color: transparent !important;

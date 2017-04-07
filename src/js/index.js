@@ -21,7 +21,7 @@ $(document).ready(function(){
   $( function() {
     $( "#tabs" ).tabs();
   });
-  $('button[type=submit]').button({icons: {primary: 'ui-icon-circle-zoomin'}}).click(function (event) {
+  $('button[type=submit]').button().click(function (event) {
   event.preventDefault();
   });
 
@@ -52,7 +52,16 @@ $(document).ready(function(){
 
               var compteur = 0;
               var modal = $("<div/>").css("display", "none");
-              
+              var erreur = $("<div/>").css("display", "none");
+
+              if (data.stat=="fail"){
+                erreur.dialog({
+                dialogClass: "alert",
+                modal:"true"
+                });
+                erreur.html("<center>Aucun résultat pour votre requête.</center>");
+                erreur.css( "display", "block" );
+              }
               for (photo of data.photos.photo){
 
                   window.src ='http://farm'+photo.farm+'.staticflickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret;
@@ -72,6 +81,9 @@ $(document).ready(function(){
                           var date = data.photo.dates.taken.split(" ")[0].split("-");
                           var heure = data.photo.dates.taken.split(" ")[1].split(":");
                           window.publication = date[2]+"/"+date[1]+"/"+date[0]+" à "+heure[0]+":"+heure[1];
+                          if(data.photo.location){
+                             window.gps=data.photo.location;
+                            }
 
                           window.titre = data.photo.title._content;
                           window.auteur = data.photo.owner.username;
@@ -105,8 +117,17 @@ $(document).ready(function(){
                       var srcHigh = $(this).attr("src");
                       var urlhd =srcHigh.substr(0, srcHigh.length-6)+"_h.jpg";
                       window.infos = '<div class="modal_container">' +'<img class="img-modal"  src="'+urlhd+'"/>';
-                      modal.html(window.infos+'<div class="modal_infos"><p>'+window.titre+'</p><p>'+window.auteur+'</p><p>'+window.resume+'</p></div></div>');
-                      if(data.photo.location){
+                      window.infos=window.infos+'<div class="modal_infos"><p>'+window.titre+'</p><p>'+window.auteur+'</p><p>'+window.resume+'</p></div></div>';
+                      if (window.gps!=null){
+
+                          var lat = window.gps.latitude;
+                          var lng = window.gps.longitude;
+
+                        modal.html(window.infos+'<div id="coords">'+lat+','+lng+"</div></div>");
+                        window.gps=null;
+                      }
+                      else{
+                        modal.html(window.infos+"</div>");
 
                       }
 
@@ -114,6 +135,7 @@ $(document).ready(function(){
 
 
                   });
+
                   image.appendTo("#images");
 
               }
