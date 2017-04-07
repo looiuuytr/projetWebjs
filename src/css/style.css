@@ -1,7 +1,8 @@
 #rechercher{
-  background: #4bbdea;
-  color:white !important;
-  border: 1px solid #2eafda !important;
+  background: #e0eaed;
+  color: #4d525c !important;
+  border: 1px solid #0c4a5f !important;
+  transition: all .2s ease-in !important;
 }
 
 #images{
@@ -10,13 +11,85 @@
   flex-wrap: wrap;
   justify-content: space-between;
 }
+#menu{
+  background-color: rgb(19, 77, 141);
+  padding: 20px;
+}
+body{
+  margin: 0 ;
+}
 .modal{
   display:none;
+}
+#formPhotos{
+  display: flex;
+  font-family: 'PT Sans', sans-serif;
+  font-size: 1.2em;
+  color: rgb(255, 255, 255);
+  justify-content: space-around;
+  position: relative;
+  overflow-y: hidden;
+  transition: all .2s ease-in !important;
+  width: 60vw;
+  animation: trx 0.9s ease;
+
+}
+@keyframes trx{
+  from {transform: translateX(-100vw);}
+  to {transform: translateX(0);}
+
+}
+
+#rechercher:hover{
+  animation: bounce 0.7s ease;
+}
+@keyframes bounce{
+     from {background-color: #4bbdea !important;color:#170b0b !important;}
+     to   {background-color: #fafeff !important;color:#170b0b !important}
+}
+
+
+
+#formPhotos input{
+  height:25px;
+  margin:auto;
+}
+
+#tabs{
+  border: 0 !important;
+}
+#listTabs{
+  font-size: 2em;
+  font-family: 'PT Sans', sans-serif;
+
+}
+#litabs1 a{
+  color:white;
+}
+#litabs1{
+  background-color: rgb(19, 77, 141)!important;
+
+}
+#tabs-1{
+  background-color: rgb(19, 77, 141);
+  border: 1px solid rgb(183, 177, 177);
+  width: calc(100vw - 86px) !important;
+  margin-left: 7px !important;
+}
+#litabs2{
+
 }
 #images img {
   cursor:pointer;
   margin-bottom:10px;
+  transition:  all .2s ease-in !important;
+
 }
+#images img:hover {
+    transform: scale(1.1) !important;
+    box-shadow: 1px 0px 10px grey !important;
+}
+
 .modal_container{
   display:flex;
   align-items: center;
@@ -38,6 +111,10 @@
   background: black none no-repeat !important;
   opacity: 0.5 !important;
 
+}
+#tabs{
+  width: calc(100vw - 14px) !important;
+  margin:auto !important;
 }
 #tabs ul{
   background-color: rgb(95, 191, 252);
@@ -84,4 +161,7 @@ justify-content: space-between;
     border-radius: 2px;
     color: white !important;
     border-color: transparent !important;
+}
+a.ui-tabs-anchor {
+  padding-right:0 !important;
 }

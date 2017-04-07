@@ -52,14 +52,16 @@ $(document).ready(function(){
 
               var compteur = 0;
               var modal = $("<div/>").css("display", "none");
-
+              
               for (photo of data.photos.photo){
+
                   window.src ='http://farm'+photo.farm+'.staticflickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret;
                   var image = $("<img/>").attr("src", window.src+'_m.jpg');
                   var urlInfos = 'https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=595c96c581cabd128a0abb3f9a581c3e'+
                               '&photo_id='+photo.id+
                               '&secret='+photo.secret+
                               '&format=json&nojsoncallback=1';
+
                   $.ajax({
                       url:urlInfos,
                       type:'GET',
@@ -86,6 +88,8 @@ $(document).ready(function(){
 
 
 
+
+
                     },
                       error: function(resultat,statut,erreur){
 
@@ -102,7 +106,9 @@ $(document).ready(function(){
                       var urlhd =srcHigh.substr(0, srcHigh.length-6)+"_h.jpg";
                       window.infos = '<div class="modal_container">' +'<img class="img-modal"  src="'+urlhd+'"/>';
                       modal.html(window.infos+'<div class="modal_infos"><p>'+window.titre+'</p><p>'+window.auteur+'</p><p>'+window.resume+'</p></div></div>');
+                      if(data.photo.location){
 
+                      }
 
 
 

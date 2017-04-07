@@ -11,11 +11,13 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css">
     <script type="text/javascript" src="../js/index.js"></script>
+     <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
   </head>
   <body>
     <div id="menu">
       <form id="formPhotos">
-        Commune <input id="commune" list="listeCommunes" type="text" name="commune" value="" >
+        <p>Commune ou Tag recherché</p>
+        <input id="commune" list="listeCommunes" type="text" name="commune" value="" >
         <input type="number" id="nbphotos" value="20">
         <button id="rechercher" type="submit">Go!</button>
       </form>
@@ -23,9 +25,9 @@
     </div>
   </br>
     <div id="tabs">
-      <ul>
-        <li><a href="#tabs-1">Photos</a></li>
-        <li><a href="#tabs-2">Tableau</a></li>
+      <ul id="listTabs">
+        <li id="litabs1"><a href="#tabs-1">Photos</a></li>
+        <li id="litabs2"><a href="#tabs-2">Tableau</a></li>
       </ul>
       <div id="tabs-1">
         <div id="images"></div>
